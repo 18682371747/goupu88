@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>购铺网</title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <meta name="description" content="购铺网 长沙商铺 门面出租转让 商铺出租转让 长沙找门面 长沙转门面">
+    <meta name="keywords" content="购铺网 长沙商铺 门面出租转让 商铺出租转让 长沙找门面 长沙转门面">
+    <meta name="author" content="购铺网">
+    <link rel="stylesheet" type="text/css" href="./resource/css/style.css">
+    <link rel="stylesheet" type="text/css" href="./resource/css/neiye.css">
+    <link rel="stylesheet" type="text/css" href="./resource/css/filter.css">
+    <link rel="stylesheet" type="text/css" href="./resource/css/public.css">
+    <script type="text/javascript" src="./resource/js/jquery.js"></script>
+    <script type="text/javascript" src="./resource/js/pic_tab.js"></script>
+    <script type="text/javascript" src="./resource/js/vue.min.js"></script>
+</head>
+
+<body>
+
+    <div id="app">
+        <!-- top -->
+        <div class="header">
+            <div class="logo clearfix">
+                <a href="http://www.goupu88.com/index.html">
+                    <img src="./resource/images/logo.jpg" alt="">
+                </a>
+                <div class="head-center">
+                    <form>
+                        <input type="text" name="topKeywords" placeholder="求租" v-model="topKeywords">
+                        <input type="button" name="submit" value="搜索" @click="keySearch">
+                        <p class="hot-search">热门搜索：
+                            <a href="http://www.goupu88.com/transfer_list.html?qy=all">区域</a>
+                            <a href="http://www.goupu88.com/transfer_list.html?mj=all">面积</a>
+                        </p>
+                    </form>
+
+                </div>
+                <div class="head-right">
+                    <p>
+                        <a href="publish.html">免费发布信息</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="header-bottom">
+            <div class="content clearfix">
+                <div class="shop-screening">
+                    <p>商铺筛选</p>
+                </div>
+                <div class="top_bottom">
+                    <ul class="clearfix">
+                        <li>
+                            <a href="index.html">首页</a>
+                        </li>
+                        <li>
+                            <a href="transfer_list.html?lx=2">商铺转让</a>
+                        </li>
+                        <li>
+                            <a href="transfer_list.html?lx=3">出租招商</a>
+                        </li>
+                        <li>
+                                <a href="activity_list.html">活动策划</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="contact">
+                    <img src="./resource/images/tel-phone.png" style="height: 47px;">
+                    <span>热线电话：15074928121</span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="content news-box clearfix">
+            <!-- <div class="w_a aboutCon"> -->
+            <div class="navigation">
+                购铺网 &gt; 当前位置：
+                <a href="index.html">首页</a> &gt;<a href="news_list.html">商业动态</a> &gt; 商业动态内容
+            </div>
+
+            <div id="" class="content-r">
+                <div class="news-de clearfix">
+                    <h3 style="text-align: center; margin-bottom: 30px;" v-html="jbxx.xwbt"></h3>
+                    <div v-html="jbxx.context">
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <footer>
+            <div class="footer">
+                <div class="content clearfix">
+                    <p>Copyright http://www.goupu88.com All Rights Reserved</p>
+                    <p>长沙融聚文化有限公司 公司地址：湖南省长沙市雨花区雨花亭万博汇二期5栋1810室</p>
+                    <p>投诉热线：13530535270</p>
+                    <p>ICP备案号： XXXXXX</p>
+                </div>
+            </div>
+        </footer>
+        <!-- 联系我们 -->
+        <div style="right:-230px;" class="contactusdiyou">
+            <div class="conter">
+                <div class="con1">
+                    <dl class="fn_cle">
+                        <dt>
+                            <img src="./resource/images/tel.png" height="31" width="31">
+                        </dt>
+                        <dd class="f1">咨询热线：</dd>
+                        <dd class="f2">
+                            <span class="ph_num">15074928121</span>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="blank0"></div>
+                <div class="qqcall">
+                    <dl class="fn_cle">
+                        <dt>
+                            <img src="./resource/images/zxkfqq.png" height="31" width="31">
+                        </dt>
+                        <dd class="f1 f_s14">在线客服：</dd>
+                        <dd class="f2 kefuQQ">
+                            <span>客服</span>
+                            <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=464799072&amp;site=qq&amp;menu=yes"></a>
+                        </dd>
+                    </dl>
+                    <div class="blank0"></div>
+                </div>
+                <div class="blank0"></div>
+                <div class="weixincall">
+                    <dl class="fn_cle">
+                        <dt>
+                            <img src="./resource/images/weixin.png" height="31" width="31">
+                        </dt>
+                        <dd class="f1">微信客服：</dd>
+                        <dd class="f3">
+                            <img src="./resource/images/erweima.jpg" height="73" width="73">
+                        </dd>
+                    </dl>
+                </div>
+                <div class="blank0"></div>
+                <div class="dytimer">
+                    <span style="font-weight: bold;">公司邮箱：</span>
+                    <span>464799072@qq.com</span>
+                    <br>
+                    <!--<span>e-finace.cn@vteamsystem.com（解决方案）</span>-->
+                </div>
+            </div>
+            <div class="hoverbtn">
+                <span>联</span>
+                <span>系</span>
+                <span>我</span>
+                <span>们</span>
+                <img class="hoverimg" src="./resource/images/hoverbtnbg.gif" height="9" width="13">
+            </div>
+        </div>
+        <div class="diyoumask"></div>
+    </div>
+
+
+    <script type="text/javascript">
+        $(function () {
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    topKeywords: '',
+                    restUrl: 'http://183.215.12.97:8884/slowbuy',//http://183.215.12.97:8884/rjBuy     http://192.168.1.107:8080/slowbuy/
+                    id: '',
+                    jbxx: {
+                    }
+
+                },
+                methods: {
+                    keySearch: function () {
+                        if (this.topKeywords == "") {
+                            alert('搜索关键字不能够为空！');
+                            return false;
+                        }
+                        window.location = "transfer_list.html?search_str="+encodeURI(this.topKeywords);
+                    },
+                    lianxiwomen: function () {
+                        $(".contactusdiyou").hover(function () {
+                            $('.diyoumask').fadeIn();
+                            $('.contactusdiyou').animate({ right: '0' }, 300);
+                        }, function () {
+                            $('.contactusdiyou').animate({ right: '-230px' }, 300, function () { });
+                            $('.diyoumask').fadeOut();
+                        });
+                    },
+                    getRequest: function () {
+                        var url = location.search; //获取url中"?"符后的字串   
+                        var theRequest = new Object();
+                        if (url.indexOf("?") != -1) {
+                            var str = url.substr(1);
+                            strs = str.split("&");
+                            for (var i = 0; i < strs.length; i++) {
+                                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                            }
+                        }
+                        return theRequest;
+                    },
+                    getData: function () {
+                        var me = this;
+                        $.ajax({
+                            type: "get",
+                            url: me.restUrl + "/first/getDynamicsById",//获取租金信息
+                            dataType: "jsonp",
+                            async: false,
+                            data: { id: me.id },
+                            success: function (data) {
+                                me.jbxx = data.busDynamicsInfo;
+                            }
+                        });
+                    },
+
+                },
+                mounted: function () {
+                    this.lianxiwomen();//联系我们
+                    this.id = this.getRequest().id;
+                    this.getData();
+
+                }
+            });
+        })
+    </script>
+
+
+
+</body>
+
+</html>

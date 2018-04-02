@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>购铺网</title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="./resource/css/style.css">
+    <link rel="stylesheet" type="text/css" href="./resource/css/neiye.css">
+    <link rel="stylesheet" type="text/css" href="./resource/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="./resource/css/lanrenzhijia.css">
+    <script type="text/javascript" src="./resource/js/jquery.js"></script>
+    <script type="text/javascript" src="./resource/js/layui.js"></script>
+    <script type="text/javascript" src="./resource/js/words-roll.js"></script>
+    <script type="text/javascript" src="./resource/js/vue.min.js"></script>
+
+
+
+</head>
+
+<body>
+    <div class="advbox">
+        <div class="dt_big">
+            <div class="dt_toSmall"></div>
+            <a href="http://www.lanrenzhijia.com/" target="_blank">
+                <img id="actionimg" src="http://www.rjpmp.com:8099/goodsImg/0180328155015.jpg" width="100%" height="600" alt="jquery广告图片大图"
+                />
+            </a>
+        </div>
+    </div>
+    <div id="app">
+
+        <!-- top -->
+        <div class="header">
+            <div class="logo clearfix">
+                <a href="http://www.goupu88.com/index.html">
+                    <img src="./resource/images/logo.jpg" alt="">
+                </a>
+                <div class="head-center">
+                    <form>
+                        <input type="text" name="topKeywords" placeholder="求租" v-model="topKeywords">
+                        <input type="button" name="submit" value="搜索" @click="keySearch">
+                        <p class="hot-search">热门搜索：
+                            <a href="http://www.goupu88.com/transfer_list.html?qy=all">区域</a>
+                            <a href="http://www.goupu88.com/transfer_list.html?mj=all">面积</a>
+                        </p>
+                    </form>
+
+                </div>
+                <div class="head-right">
+                    <p>
+                        <a href="publish.html">免费发布信息</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="header-bottom">
+            <div class="content clearfix">
+                <div class="shop-screening">
+                    <p>商铺筛选</p>
+                </div>
+                <div class="top_bottom">
+                    <ul class="clearfix">
+                        <li>
+                            <a href="index.html">首页</a>
+                        </li>
+                        <li>
+                            <a href="transfer_list.html?lx=2">商铺转让</a>
+                        </li>
+                        <li>
+                            <a href="transfer_list.html?lx=3">出租招商</a>
+                        </li>
+                        <li>
+                            <a href="activity_list.html">活动策划</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="contact">
+                    <img src="./resource/images/tel-phone.png" style="height: 47px;">
+                    <span>热线电话：15074928121</span>
+                </div>
+            </div>
+        </div>
+        <!-- banner -->
+        <section>
+            <div class="content transfer-bottom clearfix">
+                <div class="serch-condition">
+                    <dl>
+                        <dt>面积</dt>
+                        <dd v-for="item in mj_items">
+                            <a :href="'transfer_list.html?mj='+item.id" v-text="item.dm"></a>
+                        </dd>
+
+                    </dl>
+                    <dl>
+                        <dt>价格</dt>
+                        <dd v-for="item in jg_items">
+                            <a :href="'transfer_list.html?zj='+item.id" v-text="item.dm"></a>
+                        </dd>
+
+                    </dl>
+                    <dl>
+                        <dt>区域</dt>
+                        <dd v-for="item in qy_items">
+                            <a :href="'transfer_list.html?qy='+item.areaId" v-text="item.areaName"></a>
+                        </dd>
+
+                    </dl>
+                </div>
+                <div class="ban expansion" id="demo1">
+                    <div class="layui-carousel" id="test10" style="margin-top: 20px; width: 690px; height: 280px;" lay-anim="" lay-indicator="inside"
+                        lay-arrow="hover">
+                        <div carousel-item="">
+                            <div :class="index==(gg_items.length-1) ? 'layui-this' : ''" v-for="(item,index) in gg_items">
+                                <img :src="item.imgBanner">
+                            </div>
+
+                        </div>
+                        <div class="layui-carousel-ind">
+                            <ul>
+                                <li :class="index==(gg_items.length-1) ? 'layui-this' : ''" v-for="(item,index) in gg_items"></li>
+                            </ul>
+                        </div>
+                        <button class="layui-icon layui-carousel-arrow" lay-type="sub"></button>
+                        <button class="layui-icon layui-carousel-arrow" lay-type="add"></button>
+                    </div>
+                </div>
+                <div class="transfer">
+                    <div class="transfer-details">
+                        <div class="tabs">
+                            <a href="javascript:;" :class="zhuanrang_cls" @click="getZhuanRang">最新转让</a>
+                            <a href="javascript:;" :class="qiuzu_cls" @click="getQiuzu">最新求租</a>
+                        </div>
+                        <div class="news-transfer list_lh " :class="zhuanrang_cls ? 'show' : ''">
+                            <ul>
+                                <li v-for="(item,index) in zxzr_items" :class="index%2==1 ? 'clear lieven' : 'clear'">
+                                    <a target="_blank" :href="'transfer_list.html?id='+item.id" v-text="item.bt" :title="item.bt"></a>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="news-transfer list_lh " :class="qiuzu_cls ? 'show' : ''">
+                            <ul>
+                                <li v-for="(item,index) in zxqz_items" :class="index%2==1 ? 'clear lieven' : 'clear'">
+                                    <a target="_blank" :href="'transfer_detail.html?id='+item.id" v-text="item.bt" :title="item.bt"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- 广告位 -->
+            <div class="content">
+                <div class="contact-info clearfix">
+
+                    <ul class="contact-info-one clearfix">
+                        <li :class="'info'+(index+1)" v-for="(item,index) in gg_min_items" v-if="index <= 4">
+                            <p>
+                                <a target="_blank" :href="'transfer_detail.html?id='+item.id">
+                                    <img :src="item.imgBanner" width="590" height="50">
+                                </a>
+                            </p>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li :class="'info'+(index+1)" v-for="(item,index) in gg_min_items" v-if="index > 4">
+                            <p>
+                                <a target="_blank" :href="'transfer_detail.html?id='+item.id">
+                                    <img :src="item.imgBanner" width="590" height="50">
+                                </a>
+                            </p>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </section>
+        <!-- 旺铺精选 -->
+        <div class="content">
+            <div class="shop-selected clearfix">
+                <div class="tabs">
+                    <ul>
+                        <a href="javascript:void(0)" @click="getJingXuan({qfmqzt:1})" class="selected-first">旺铺精选</a>
+                        <a href="javascript:void(0)" v-for="(item,index) in qy_items" v-text="item.areaName" @click="getJingXuan({kz_qy:item.id,qfmqzt:1})"></a>
+                    </ul>
+                </div>
+                <!-- ngView: -->
+                <div ng-view="" class="ng-scope">
+                    <div class="shop clearfix ng-scope">
+                        <ul>
+                            <li v-for="(item,index) in wpjx_items" v-if="index<10">
+                                <a target="_blank" :href="'transfer_detail.html?id='+item.id">
+                                    <img :src="item.imgurl">
+                                    <p></p>
+                                    <p class="price">
+                                        <span>面积:
+                                            <i v-text="item.mj+'㎡'"></i>
+                                        </span>
+                                        <span>租金:
+                                            <i v-text="item.price"></i>元/月</span>
+                                    </p>
+                                    <p class="contact">
+                                        <span v-text="item.lxr"></span>
+                                        <span v-text="item.lxdh"></span>
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section>
+            <div class="content clearfix">
+                <div class="shop-details">
+                    <ul>
+                        <li :class="index==0? 'current':''" v-for="(item,index) in ytfl_items" @click="getYeTai({kz_yt:item.id})">
+                            <a href="javascript:;" v-text="item.dmnr"></a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="shop-details-colum clearfix" id="show">
+                    <ul class="clearfix">
+                        <li v-for="(item,index) in yt_items">
+                            <a target="_blank" :href="'transfer_detail.html?id='+item.id" v-text="item.bt"></a>
+                            <span v-text="'【'+item.tjsj+'】'"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!-- 商业动态 -->
+        <section>
+            <div class="content address-selected business-trand">
+                <div class="tabs">
+                    <a class="selected-first">商业动态</a>
+                    <span style=" float:right;">
+                        <a style=" font-size: 12px;  color: #000;   border: none; padding-top: 10px;" href="news_list.html" target="_blank">更多+</a>
+                    </span>
+                </div>
+                <div class="address-selected-b clearfix">
+                    <div v-for="(item,index) in sydt_items" :class="index%2==1 ? 'trand-l' : 'trand-r'">
+                        <ul>
+                            <li class="info-4">
+                                <a target="_blank" :href="'news_detail.html?id='+item.id" v-text="item.xwbt"></a>
+                                <span v-text="item.fbsj"></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- 合作商 -->
+        <section style="margin-bottom:20px;">
+            <div class="content address-selected">
+                <div class="tabs">
+                    <a class="selected-first">合作商</a>
+                    <!-- <span style=" float:right;">
+                        <a style=" font-size: 12px;  color: #000;   border: none; padding-top: 10px;" href="business_list.html" target="_blank">更多+</a>
+                    </span> -->
+                </div>
+                <div class="brand">
+                    <ul class="clearfix">
+                        <li v-for="item in hzs_items">
+                            <a target="_blank" :href="item.url">
+                                <img :src="item.imgurl" :alt="item.name">
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </section>
+        <!-- 合作协会 -->
+        <section style=" margin-bottom:50px;">
+            <div class="content address-selected">
+                <div class="tabs">
+                    <a class="selected-first">合作协会</a>
+                    <!-- <span style=" float:right;">
+                            <a style=" font-size: 12px;  color: #000;   border: none; padding-top: 10px;" href="business_list.html" target="_blank">更多+</a>
+                        </span> -->
+                </div>
+                <div class="brand">
+                    <ul class="clearfix">
+                        <div v-for="item in hzxh_items" style="display: inline-block; margin-right: 20px;">
+                            <a target="_blank" :href="item.url" v-text="item.name"></a>
+                        </div>
+                    </ul>
+                    <p>
+                        <img src="./resource/images/brand-link.png">
+                        <span>合作协会</span>
+                        <a target="_blank" href="http://wh.58.com/">58同城</a>
+                        <a target="_blank" href="http://wh.ganji.com/">赶集网</a>
+                        <a target="_blank" href="http://www.shangchan.cn/">商产网</a>
+                        <a target="_blank" href="http://sydc.sina.com.cn/">新浪商业地产</a>
+                        <a target="_blank" href="http://sofang.com/">搜房网</a>
+                        <a target="_blank" href="https://wuhan.anjuke.com/?pi=PZ-baidu-pc-all-biaoti">安居客</a>
+                        <a target="_blank" href="http://wuhan.baixing.com/">百姓网</a>
+                        <a target="_blank" href="http://house.china.com.cn/wuhan/">地产中国网</a>
+                        <a target="_blank" href="https://www.liuxue86.com/hetongfanben/zulin/menmian/">门面租赁合同范文</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+        <!-- footer -->
+        <footer>
+            <div class="footer">
+                <div class="content clearfix">
+                    <p>Copyright http://www.goupu88.com All Rights Reserved</p>
+                    <p>长沙融聚文化有限公司 公司地址：湖南省长沙市雨花区雨花亭万博汇二期5栋1810室</p>
+                    <p>投诉热线：13530535270</p>
+                    <p>ICP备案号： XXXXXX</p>
+                </div>
+            </div>
+        </footer>
+        <!-- 联系我们 -->
+        <div style="right:-230px;" class="contactusdiyou">
+            <div class="conter">
+                <div class="con1">
+                    <dl class="fn_cle">
+                        <dt>
+                            <img src="./resource/images/tel.png" height="31" width="31">
+                        </dt>
+                        <dd class="f1">咨询热线：</dd>
+                        <dd class="f2">
+                            <span class="ph_num">15074928121</span>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="blank0"></div>
+                <div class="qqcall">
+                    <dl class="fn_cle">
+                        <dt>
+                            <img src="./resource/images/zxkfqq.png" height="31" width="31">
+                        </dt>
+                        <dd class="f1 f_s14">在线客服：</dd>
+                        <dd class="f2 kefuQQ">
+                            <span>客服</span>
+                            <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=464799072&amp;site=qq&amp;menu=yes"></a>
+                        </dd>
+                    </dl>
+                    <div class="blank0"></div>
+                </div>
+                <div class="blank0"></div>
+                <div class="weixincall">
+                    <dl class="fn_cle">
+                        <dt>
+                            <img src="./resource/images/weixin.png" height="31" width="31">
+                        </dt>
+                        <dd class="f1">微信客服：</dd>
+                        <dd class="f3">
+                            <img src="./resource/images/erweima.jpg" height="73" width="73">
+                        </dd>
+                    </dl>
+                </div>
+                <div class="blank0"></div>
+                <div class="dytimer">
+                    <span style="font-weight: bold;">公司邮箱：</span>
+                    <span>464799072@qq.com</span>
+                    <br>
+                    <!--<span>e-finace.cn@vteamsystem.com（解决方案）</span>-->
+                </div>
+            </div>
+            <div class="hoverbtn">
+                <span>联</span>
+                <span>系</span>
+                <span>我</span>
+                <span>们</span>
+                <img class="hoverimg" src="./resource/images/hoverbtnbg.gif" height="9" width="13">
+            </div>
+        </div>
+        <div class="diyoumask"></div>
+
+    </div>
+
+
+    <script type="text/javascript">
+        $(function () {
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    restUrl: 'http://183.215.12.97:8884/slowbuy',//http://183.215.12.97:8884/rjBuy
+                    imgUrl: './resource/temp_img/',
+                    topKeywords: '',
+                    gg_items: [],
+                    gg_min_items: [],
+                    mj_items: [],
+                    jg_items: [],
+                    qy_items: [],
+                    zxzr_items: [],
+                    ytfl_items: [],
+                    yt_items: [],
+                    zhuanrang_cls: '',
+                    qiuzu_cls: '',
+                    zxqz_items: [],
+                    wpjx_items: [],
+                    sydt_items: [],
+                    hzs_items: [],//合作商
+                    hzxh_items: [{ name: '长沙市临湘商会', url: 'http://www.csslxsh.com/' }, { name: '长沙市岳阳县商会', url: 'javascript:;' }, { name: '湖南省湖北商会', url: 'http://www.hbcchn.com/' }, { name: '长沙市证券学会', url: 'http://www.cszqxh.com/' }, { name: '长沙市成长型企业发展促进会', url: 'javascript:;' }, { name: '湖南省投资理财学会', url: 'javascript:;' }, { name: '长沙建材商盟', url: 'javascript:;' }]//合作协会
+
+                },
+                methods: {
+                    keySearch: function () {
+                        if (this.topKeywords == "") {
+                            alert('搜索关键字不能够为空！');
+                            return false;
+                        }
+                        window.location = "transfer_list.html?search_str=" + encodeURI(this.topKeywords);
+                    },
+                    lianxiwomen: function () {
+                        $(".contactusdiyou").hover(function () {
+                            $('.diyoumask').fadeIn();
+                            $('.contactusdiyou').animate({ right: '0' }, 300);
+                        }, function () {
+                            $('.contactusdiyou').animate({ right: '-230px' }, 300, function () { });
+                            $('.diyoumask').fadeOut();
+                        });
+                    },
+                    tupianlunbo: function () {
+                        layui.use(['carousel'], function () {
+                            var carousel = layui.carousel;
+                            carousel.render({
+                                elem: '#test10'
+                                , width: '690px'
+                                , height: '280px'
+                                , interval: 2000
+                            });
+                        });
+
+                    },
+                    tuwenlunbo: function () {
+                        // 轮播按钮
+                        var width = $("#ban_num1 li").width();
+                        var marginRight = parseInt($("#ban_num1 li").css('marginRight'));
+                        var left = width + marginRight + 'px';
+
+                        $('.expansion').on('click', '.next', function () {
+                            var length = $("#ban_num1 li").length;
+                            var content = $("#ban_num1 li").eq(length - 1).html();
+                            content = "<li>" + content + "</li>";
+                            $("#ban_num1").animate({ left: left }, 500, "linear", function () {
+                                $("#ban_num1 ul").prepend(content); //追加到内部的前面
+                                $("#ban_num1 li").eq(length).remove(); //删除最后一个li
+                                $("#ban_num1").css("left", 0);
+                            });
+                        });
+                        $('.expansion').on('click', '.prev', function () {
+                            var content = $("#ban_num1 li").eq(0).html(); //获取第一个li中的内容
+                            content = "<li>" + content + "</li>";
+                            $("#ban_num1").animate({ left: "-" + left }, 500, "linear", function () {
+                                $("#ban_num1 ul").append(content);//追加到内部的后面
+                                $("#ban_num1 li").eq(0).remove();
+                                $("#ban_num1").css("left", 0);
+                            });
+                        });
+                        setInterval("$('.prev').click()", 2000);
+                    },
+                    zhuanrangqiuzulunbo: function () {
+                        $("div.list_lh").myScroll({
+                            speed: 40, //数值越大，速度越慢
+                            rowHeight: 25 //li的高度
+                        });
+                    },
+                    getQiuzu: function () {
+                        var me = this;
+                        me.qiuzu_cls = 'active';
+                        me.zhuanrang_cls = '';
+                        $.ajax({
+                            type: "get",
+                            url: me.restUrl + "/search/getSublet",//获取最新求租信息
+                            dataType: "jsonp",
+                            async: false,
+                            data: {},
+                            success: function (data) {
+                                me.zxqz_items = data.newsSublet;
+
+                            }
+                        });
+                    },
+                    getMjInfo: function () {
+                        var me = this;
+                        $.ajax({
+                            type: "get",
+                            url: me.restUrl + "/search/getMjInfo",//获取面积信息
+                            dataType: "jsonp",
+                            async: false,
+                            data: {},
+                            success: function (data) {
+                                me.mj_items = data.commonInfo;
+                            }
+                        });
+                    },
+                    getZjInfo: function () {
+                        var me = this;
+                        $.ajax({
+                            type: "get",
+                            url: me.restUrl + "/search/getZjInfo",//获取租金信息
+                            dataType: "jsonp",
+                            async: false,
+                            data: {},
+                            success: function (data) {
+                                me.jg_items = data.commonInfo;
+                            }
+                        });
+                    },
+                    getQyInfo: function () {
+                        var me = this;
+                        $.ajax({
+                            type: "get",
+                            url: me.restUrl + "/first/getArea",//获取区域信息
+                            dataType: "jsonp",
+                            async: false,
+                            data: {},
+                            success: function (data) {
+                                me.qy_items = data.AreaInfo;
+                            }
+                        });
+                    },
+                    getZhuanRang: function () {
+                        var me = this;
+                        me.qiuzu_cls = '';
+                        me.zhuanrang_cls = 'active';
+                        $.ajax({
+                            type: "get",
+                            url: me.restUrl + "/search/getTransfer",//获取最新转让信息
+                            dataType: "jsonp",
+                            async: false,
+                            data: {},
+                            success: function (data) {
+                                me.zxzr_items = data.newsTransfer;
+
+                            }
+                        });
+                    },
+                    getYeTaiFL: function () {
+                        var me = this;
+                        $.ajax({
+                            type: "get",
+                            url: me.restUrl + "/search/getYtInfo",//获取业态信息
+                            dataType: "jsonp",
+                            async: false,
+                            data: {},
+                            success: function (data) {
+                                me.ytfl_items = data.commonInfo;
+                            }
+                        });
+                    },
+                    getBusiness: function () {
+                        var me = this;
+                        $.ajax({
+                            type: "post",
+                            url: me.restUrl + "/new/getBusiness",//获取企业商家信息
+                            dataType: "jsonp",
+                            async: false,
+                            data: { pageIndex: 1, pageSize: 20 },
+                            success: function (data) {
+                                me.hzs_items = data.businessInfo;
+
+                            }
+                        });
+                    },
+                    getDongTai: function () {
+                        var me = this;
+                        $.ajax({
+                            type: "post",
+                            url: me.restUrl + "/first/getDynamics",//获取商业动态信息
+                            dataType: "jsonp",
+                            async: false,
+                            data: { lb: '2' },
+                            success: function (data) {
+                                me.sydt_items = data.dynamicsInfo;
+
+                            }
+                        });
+                    },
+                    getJingXuan: function (param) {
+                        var me = this;
+                        $.ajax({
+                            type: "post",
+                            url: me.restUrl + "/new/getNewsByLb",//获取精选旺铺信息
+                            dataType: "jsonp",
+                            async: false,
+                            data: param || {},
+                            success: function (data) {
+                                me.wpjx_items = data.newsInfo;
+
+                            }
+                        });
+                    },
+                    getYeTai: function (param) {
+                        var me = this;
+                        if(!param.kz_yt){
+                            param = {};
+                        }
+                        $.ajax({
+                            type: "post",
+                            url: me.restUrl + "/new/getNewsByLb",//获取业态旺铺信息
+                            dataType: "jsonp",
+                            async: false,
+                            data: param || {},
+                            success: function (data) {
+                                me.yt_items = data.newsInfo;
+
+                            }
+                        });
+                    },
+                    getData: function (callback) {
+                        var me = this;
+                        $.ajax({
+                            type: "get",
+                            url: me.restUrl + "/first/getImgBanner",//获取大图5小图10广告信息
+                            dataType: "jsonp",
+                            async: false,
+                            data: {},
+                            success: function (data) {
+
+                                me.gg_items = data.ImgBannerInfo.filter(function (item) {
+                                    return item.tpfl == 1;
+                                });
+
+                                me.gg_min_items = data.ImgBannerInfo.filter(function (item) {
+                                    return item.tpfl == 2;
+                                });
+
+
+                            }
+                        });
+                        me.getQyInfo();
+                        me.getYeTaiFL();
+                        me.getMjInfo();
+                        me.getZjInfo();
+                        me.getZhuanRang();
+                        me.getDongTai();
+                        me.getJingXuan({ qfmqzt: 1 });
+                        me.getYeTai({kz_yt:''});
+                        me.getBusiness();
+
+
+
+
+                        callback && setTimeout(callback, 1500);
+                    },
+                    AdvAuto: function () {
+                        if ($(".dt_big").length > 0) {
+                            var a = 1500;
+                            var b = 3 * 1000;
+                            $(".dt_big").delay(b).slideUp(a, function () {
+                                $(".dt_toBig").delay(a).fadeIn(0);
+                            });
+
+                            $(".dt_toSmall").delay(b).fadeOut(0)
+
+                        }
+                    }
+                },
+                mounted: function () {
+                    var me = this;
+                    this.getData(function () {
+                        me.tupianlunbo();//大图轮播
+
+                    });
+                    this.lianxiwomen();//联系我们
+                    this.zhuanrangqiuzulunbo();//大图右边最新转租求租列表轮播
+                    //顶部通览可展开收起效果
+                    if ($("#actionimg").length > 0) {
+                        $("#actionimg").onload = this.AdvAuto();
+                    }
+                }
+            });
+        });
+
+
+
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>

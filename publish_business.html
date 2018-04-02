@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>购铺网</title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <meta name="description" content="购铺网 长沙商铺 门面出租转让 商铺出租转让 长沙找门面 长沙转门面">
+    <meta name="keywords" content="购铺网 长沙商铺 门面出租转让 商铺出租转让 长沙找门面 长沙转门面">
+    <meta name="author" content="购铺网">
+    <link rel="stylesheet" type="text/css" href="./resource/css/admin.css">
+    <link rel="stylesheet" type="text/css" href="./resource/css/style.css">
+    <link rel="stylesheet" type="text/css" href="./resource/css/neiye.css">
+    <link rel="stylesheet" type="text/css" href="./resource/css/filter.css">
+    <link rel="stylesheet" type="text/css" href="./resource/themes/default/css/umeditor.css">
+
+
+    <script type="text/javascript" src="./resource/js/jquery.js"></script>
+    <script type="text/javascript" src="./resource/js/vue.min.js"></script>
+    <script type="text/javascript" src="./resource/js/umeditor.config.js"></script>
+    <script type="text/javascript" src="./resource/js/umeditor.min.js"></script>
+    <script type="text/javascript" src="./resource/lang/zh-cn/zh-cn.js"></script>
+
+
+    <style type="text/css">
+        #exp_list {
+            font-size: 12px;
+        }
+
+        #exp_list select {
+            width: 150px;
+            height: 28px;
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+
+        .bar {
+            height: 18px;
+            background: green;
+        }
+
+        .upload_btn {
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            background: #E4E4E4;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 2px;
+            text-align: center;
+        }
+
+        input[type=date]::-webkit-inner-spin-button {
+            visibility: hidden;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div id="app">
+
+        <div class="header-bottom">
+            <div class="content clearfix">
+                <div class="shop-screening">
+                    <p>商业动态发布</p>
+                </div>
+
+            </div>
+        </div>
+        <div id="containerAdmin" class="wrapper_m">
+            <div id="contentbarAdmin">
+                <form method="post" name="formAdmin" target="_parent" id="formAdmin" enctype="multipart/form-data">
+                    <div class="clearfix mt_10">
+                        <ul id="atab1" class="adminTabs_1">
+                            <li class="tabCurrent">常规信息</li>
+
+                        </ul>
+                    </div>
+                    <div id="atab1_content0">
+                        <table cellspacing="1" class="adminTableV0">
+                            <tbody>
+                                <tr>
+                                    <td class="tw_1">标题：</td>
+                                    <td class="tw_2">
+                                        <input v-model="form.xwbt" type="text" class="moduleBorderA moduleInputA iW_500">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tw_1">发布人：</td>
+                                    <td class="tw_2">
+                                        <input v-model="form.fbr" type="text" class="moduleBorderA moduleInputA iW_500">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="tw_1">内容：</td>
+                                    <td class="tw_2">
+                                        <textarea v-model="form.context" style="width:700px; height:200px;border:1px solid #D3D3D3"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tw_1">
+                                        在主页展示的缩略图上传：</br>
+                                    </td>
+                                    <td class="tw_2">
+
+                                        <span style="display: inline-block;width: 110px;margin-right: 20px;">
+                                            <img id="uploadimg" :src="form.imgurl || './resource/images/no_pic_3.jpg'" width="220px" height="170px" style="float:left;"
+                                            />
+                                            <label id="realBtn" class="btn btn-info upload_btn" style="float:left;width:198px;">
+                                                <input type="file" id="fileupload" name="file" accept="image/*" class="mFileInput" style="left:-9999px;position:absolute;">
+                                                <span>选择图片上传</span>
+                                            </label>
+                                        </span>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tw_1">
+                                        <span class="iW_textTips">发布时间：</span>
+                                    </td>
+                                    <td class="tw_2">
+                                        <input v-model="form.fbsj" type="date" class="moduleBorderA moduleInputA iW_200" size="10" datatype="*">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2 " class="tw_3 ">
+                                        <input name="Submit " type="submit " value="发布 " class="btn_2 " @click="subForm">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+            <div class="clearfix "></div>
+        </div>
+        <!-- footer -->
+        <footer>
+            <div class="footer">
+                <div class="content clearfix">
+                    <p>Copyright http://www.goupu88.com All Rights Reserved</p>
+                    <p>长沙融聚文化有限公司 公司地址：湖南省长沙市雨花区雨花亭万博汇二期5栋1810室</p>
+                    <p>投诉热线：13530535270</p>
+                    <p>ICP备案号： XXXXXX</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                topKeywords: '',
+                restUrl: 'http://183.215.12.97:8884/slowbuy',//http://183.215.12.97:8884/rjBuy     http://192.168.1.107:8080/slowbuy/
+                form: {
+                    id: '',
+                    xwbt: '',
+                    context: '',
+                    imgurl: '',
+                    fbr: '',
+                    fbsj:'2018-01-01'
+                }
+            },
+            methods: {
+                upload: function () {
+                    var me = this;
+                    $(".upload_btn").on('change', function (file) {
+                        var btn_ts = $(this);
+                        var reader = new FileReader();
+                        var base64 = '';
+                        reader.readAsDataURL(file.target.files[0]);
+                        reader.onloadend = function () {
+                            base64 = this.result; // base64就是图片的转换的结果 
+                            var form = new FormData(document.getElementById("formAdmin"));
+                            $.ajax({
+                                url: me.restUrl + "/file/uploadImg",
+                                type: "post",
+                                data: form,
+                                cache: false,
+                                processData: false,
+                                contentType: false,
+                                success: function (data) {
+                                    data = JSON.parse(data);
+                                    btn_ts.prev().attr("src", data.filePath);
+                                },
+                                error: function (e) {
+                                    alert("网络错误，请重试！！");
+                                }
+                            });
+                        };
+                    })
+                },
+                subForm: function () {
+                    var me = this;
+
+                    me.form.imgurl = $("#uploadimg").attr("src");
+
+
+                    me.validate(function () {
+                        $.ajax({
+                            type: "post",
+                            url: me.restUrl + "/add/addDynamics",
+                            dataType: "jsonp",
+                            async: false,
+                            data: me.form,
+                            success: function (data) {
+                                alert("提交成功");
+                                window.location.reload();
+                                window.close();
+                            }
+                        });
+                    })
+
+                },
+                validate: function (callback) {
+
+                    if (!app.form.xwbt) {
+                        alert('请输入标题');
+                        return;
+                    } else if (!app.form.context) {
+                        alert('请输入内容');
+                        return;
+                    } else if (!app.form.fbr) {
+                        alert('请输入发布人');
+                        return;
+                    } else if (!app.form.fbsj) {
+                        alert('请选择发布时间');
+                        return;
+                    } else if (!app.form.imgurl) {
+                        alert('请选择图片');
+                        return;
+                    }
+
+                    callback && callback();
+
+                },
+                initData: function () {
+                    var me = this;
+                    $.ajax({
+                        type: "post",
+                        url: me.restUrl + "/first/getDynamicsById",
+                        dataType: "jsonp",
+                        async: false,
+                        data: { id: me.form.id },
+                        success: function (data) {
+                            if(data.busDynamicsInfo){
+                                me.form = data.busDynamicsInfo;
+                            }
+                           
+                        }
+                    });
+                },
+                getRequest: function () {
+                    var url = location.search; //获取url中"?"符后的字串   
+                    var theRequest = new Object();
+                    if (url.indexOf("?") != -1) {
+                        var str = url.substr(1);
+                        strs = str.split("&");
+                        for (var i = 0; i < strs.length; i++) {
+                            theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                        }
+                    }
+                    return theRequest;
+                },
+
+            },
+            mounted: function () {
+
+                this.form.id = this.getRequest().id;
+                this.upload();
+                this.initData();
+            }
+        });
+    </script>
+
+</body>
+
+</html>

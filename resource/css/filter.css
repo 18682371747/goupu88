@@ -1,0 +1,44 @@
+
+.navigation{border-bottom: 2px solid #CFCECE;margin: 30px 0 15px 0;padding-bottom: 10px;}
+.filter-conditions{border: 1px solid #DBDBDB;padding: 10px;margin-bottom: 20px;}
+.filter-conditions p{line-height: 2em;margin-bottom: 10px}
+.filter-conditions p span{margin-right: 15px;display: inline-block;cursor: pointer;font-size: 14px;}
+.filter-conditions p span.first{background: #D83347;color: #fff;padding: 0 10px}
+
+.identification-shop{width: 880px;float: left;}
+.latest-transfer{width: 270px;float: right;}
+.address-selected .identification-shop .tabs,.address-selected .latest-transfer .tabs,.supporting .tabs{border-bottom: 1px 	#B20014 solid}
+.address-selected .identification-shop .tabs a.selected-first,
+.address-selected .latest-transfer .tabs a.selected-first,
+.supporting .tabs a.selected-first{  
+    background: -webkit-linear-gradient(top, #C90214 , #9D0217); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(bottom, #C90214, #9D0217); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(bottom, #C90214, #9D0217); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to bottom, #C90214 , #9D0217); /* 标准的语法 */
+    color: #fff
+}
+.address-selected .latest-transfer .tabs a{border-right: none;color: #000}
+
+/*认证店铺*/
+.identification-shop-li{font-size: 14px;height: 160px;border-bottom: 1px #bbb solid;margin-bottom: 10px;padding-bottom: 10px;}
+.identification-shop-li .colors{color: #f58a19}
+.identification-shop-r p.colors{font-size: 18px;margin-bottom: 10px}
+.identification-shop-r li{line-height: 2em}
+.identification-shop-img{float: left;margin-left: 10px;}
+.identification-shop-r{float: right;width: 630px}
+.identification-shop-r li{float: left;padding: 0 10px}
+.identification-shop-r li.center{margin: 0 75px;    line-height: 160px;}
+.identification-shop-r li.right{margin-top: 52px}
+.identification-shop-img img{width: 200px;height: 155px;max-width: 100%;display: inline-block;}
+
+.latest{height: 340px;position: relative;}
+.latest-shop {position: absolute;top: 0}
+/*.latest .latest-shop-one{display: block;}*/
+.latest-shop li{background: url(../images/trand-icon.png) no-repeat left;padding-left: 10px;line-height: 2em}
+.latest-shop li a{width: 256px;overflow: hidden;white-space:nowrap;display: block;}
+.latest-shop{margin-bottom: 30px;display: none;}
+/*.recommendation-shop .shop >ul>li p.contact span:nth-child(2){float: none;}*/
+.recommendation-shop .shop li{margin-bottom: 20px;border: 1px #ddd solid;padding-bottom: 10px;}
+.recommendation-shop .shop li p{line-height: 2em;font-size: 16px;}
+.recommendation-shop .shop li p span{font-size: 14px;}
+.recommendation-shop .shop li a img{width: 273px;height: 207px}

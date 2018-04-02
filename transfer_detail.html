@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>购铺网</title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <meta name="description" content="购铺网 长沙商铺 门面出租转让 商铺出租转让 长沙找门面 长沙转门面">
+    <meta name="keywords" content="购铺网 长沙商铺 门面出租转让 商铺出租转让 长沙找门面 长沙转门面">
+    <meta name="author" content="购铺网">
+    <link rel="stylesheet" type="text/css" href="./resource/css/style.css">
+    <link rel="stylesheet" type="text/css" href="./resource/css/neiye.css">
+    <link rel="stylesheet" type="text/css" href="./resource/css/filter.css">
+    <script type="text/javascript" src="./resource/js/jquery.js"></script>
+    <script type="text/javascript" src="./resource/js/pic_tab.js"></script>
+    <script type="text/javascript" src="./resource/js/vue.min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=p78ZnmzmuzrMYKtvGFMlpFiEwKtVqK94"></script>
+</head>
+
+<body>
+
+    <div id="app">
+        <!-- top -->
+        <div class="header">
+            <div class="logo clearfix">
+                <a href="http://www.goupu88.com/index.html">
+                    <img src="./resource/images/logo.jpg" alt="">
+                </a>
+                <div class="head-center">
+                    <form>
+                        <input type="text" name="topKeywords" placeholder="求租" v-model="topKeywords">
+                        <input type="button" name="submit" value="搜索" @click="keySearch">
+                        <p class="hot-search">热门搜索：
+                            <a href="http://www.goupu88.com/transfer_list.html?qy=all">区域</a>
+                            <a href="http://www.goupu88.com/transfer_list.html?hy=all">行业</a>
+                            <a href="http://www.goupu88.com/transfer_list.html?mj=all">面积</a>
+                        </p>
+                    </form>
+
+                </div>
+                <div class="head-right">
+                    <p>
+                        <a href="publish.html">免费发布信息</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="header-bottom">
+            <div class="content clearfix">
+                <div class="shop-screening">
+                    <p>商铺筛选</p>
+                </div>
+                <div class="top_bottom">
+                    <ul class="clearfix">
+                        <li>
+                            <a href="index.html">首页</a>
+                        </li>
+                        <li>
+                            <a href="transfer_list.html?lx=2">商铺转让</a>
+                        </li>
+                        <li>
+                            <a href="transfer_list.html?lx=3">出租招商</a>
+                        </li>
+                        <li>
+                            <a href="activity_list.html">活动策划</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="contact">
+                    <img src="./resource/images/tel-phone.png" style="height: 47px;">
+                    <span>热线电话：15074928121</span>
+                </div>
+            </div>
+        </div>
+
+        <section>
+            <div class="content">
+                <div class="navigation">
+                    <p>购铺网 &gt; 当前位置：
+                        <a href="index.html">首页</a> &gt;
+                        <a href="transfer_list.html">商铺转让</a> &gt;商铺详情
+
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <section>
+            <div class="content mb clearfix">
+                <div class="shop-details-left">
+                    <div id="shop_detail" class="ban ban-img2 clearfix">
+                        <div id="ban_pic1" class="ban2 ban-img">
+                            <ul style="width: 940px; height: 760px; left: 0px;">
+                                <li style="float: left;" v-for="item in jbxx.imgurlAry">
+                                    <a href="javascript:;">
+                                        <img :src="item" width="620" height="380" alt="">
+                                    </a>
+                                </li>
+                                
+                            </ul>
+                        </div>
+                        <div class="min_pic">
+                            <div id="ban_dt_num" class="num num01 clearfix">
+                                <ul style="width: 100px; height: 100px;">
+                                    <li :class="index==0? 'on' :''"  v-for="(item,index) in jbxx.imgurlAry">
+                                        <a href="javascript:;">
+                                            <img :src="item" width="110" height="100" alt="">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="shop-details-right">
+                    <div class="shop-details-title">
+                        <input id="isfinish" value="0" type="hidden">
+                        <p v-if="jbxx.mqzt == 2" class="backgr" style="display: block;"></p>
+                        <h2> {{jbxx.bt}}</h2>
+                        <p id="bottom-line">更新时间：
+                            <span>{{jbxx.tjsj}}</span>
+                    </div>
+                    <div class="thirdShop">
+                        <span v-if="jbxx.lb==2">类型：转让</span>
+                        <span v-if="jbxx.lb==3">类型：出租</span>
+                        <span v-if="jbxx.lb==4">类型：招商</span>
+                    </div>
+                    <div class="thirdShop">
+                        <span>区域：{{jbxx.areaName}}</span>
+                    </div>
+                    <div class="thirdShop">
+                        <span>面积：{{jbxx.mj}}㎡</span>
+                    </div>
+                    <div class="thirdShop">
+                        <span>业态：{{jbxx.ytmc}}</span>
+                    </div>
+
+                    <p>租金：
+                        <a>{{jbxx.price}}元/月</a>
+                    </p>
+                    <p>联系电话：
+                        <a>{{jbxx.lxdh}} </a>
+                    </p>
+                    <p>联系人：
+                        <a>{{jbxx.lxr}}</a>
+                    </p>
+                    <p>商铺地址：{{jbxx.spdz}}</p>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="content">
+                <div class="supporting">
+                    <div class="tabs">
+                        <a href="javascript:;" class="selected-first">商圈优势</a>
+                    </div>
+                    <div class="p">
+                        <p v-text="jbxx.mmys"></p>
+                    </div>
+                </div>
+                <div class="supporting">
+                    <div class="tabs">
+                        <a href="javascript:;" class="selected-first">门面介绍</a>
+                    </div>
+                    <div class="p">
+                        <p v-html="jbxx.mmjs"></p>
+                    </div>
+                </div>
+                <div class="supporting">
+                    <div class="tabs">
+                        <a href="javascript:;" class="selected-first">地图交通</a>
+                    </div>
+                    <div class="map">
+                        <!--百度地图容器-->
+                        <div style="width: 697px; height: 550px; border: 1px solid rgb(204, 204, 204);margin: 20px; overflow: hidden; position: relative; z-index: 0; background-image: url(&quot;http://api.map.baidu.com/images/bg.png&quot;); color: rgb(0, 0, 0); text-align: left;"
+                            id="allmap">
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <div class="footer">
+                <div class="content clearfix">
+                    <p>Copyright http://www.goupu88.com All Rights Reserved</p>
+                    <p>长沙融聚文化有限公司 公司地址：湖南省长沙市雨花区雨花亭万博汇二期5栋1810室</p>
+                    <p>投诉热线：13530535270</p>
+                    <p>ICP备案号： XXXXXX</p>
+                </div>
+            </div>
+        </footer>
+        <!-- 联系我们 -->
+        <div style="right:-230px;" class="contactusdiyou">
+            <div class="conter">
+                <div class="con1">
+                    <dl class="fn_cle">
+                        <dt>
+                            <img src="./resource/images/tel.png" height="31" width="31">
+                        </dt>
+                        <dd class="f1">咨询热线：</dd>
+                        <dd class="f2">
+                            <span class="ph_num">15074928121</span>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="blank0"></div>
+                <div class="qqcall">
+                    <dl class="fn_cle">
+                        <dt>
+                            <img src="./resource/images/zxkfqq.png" height="31" width="31">
+                        </dt>
+                        <dd class="f1 f_s14">在线客服：</dd>
+                        <dd class="f2 kefuQQ">
+                            <span>客服</span>
+                            <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=464799072&amp;site=qq&amp;menu=yes"></a>
+                        </dd>
+                    </dl>
+                    <div class="blank0"></div>
+                </div>
+                <div class="blank0"></div>
+                <div class="weixincall">
+                    <dl class="fn_cle">
+                        <dt>
+                            <img src="./resource/images/weixin.png" height="31" width="31">
+                        </dt>
+                        <dd class="f1">微信客服：</dd>
+                        <dd class="f3">
+                            <img src="./resource/images/erweima.jpg" height="73" width="73">
+                        </dd>
+                    </dl>
+                </div>
+                <div class="blank0"></div>
+                <div class="dytimer">
+                    <span style="font-weight: bold;">公司邮箱：</span>
+                    <span>464799072@qq.com</span>
+                    <br>
+                    <!--<span>e-finace.cn@vteamsystem.com（解决方案）</span>-->
+                </div>
+            </div>
+            <div class="hoverbtn">
+                <span>联</span>
+                <span>系</span>
+                <span>我</span>
+                <span>们</span>
+                <img class="hoverimg" src="./resource/images/hoverbtnbg.gif" height="9" width="13">
+            </div>
+        </div>
+        <div class="diyoumask"></div>
+    </div>
+
+
+    <script type="text/javascript">
+        $(function () {
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    topKeywords: '',
+                    restUrl: 'http://183.215.12.97:8884/slowbuy',//http://183.215.12.97:8884/rjBuy     http://192.168.1.107:8080/slowbuy/
+                    id: '',
+                    jbxx: {
+                        bt: '',
+                        tjsj: '',
+                        ytmc: '',
+                        lxdh: '',
+                        areaName: '',
+                        mj: '',
+                        imgurls: '',
+                        imgurlAry: [],
+                        imgurl: '',
+                        lb: '',
+                        price: '',
+                        spdz: '',
+                        lxr: '',
+                        mmjs: '',
+                        mmys: '',
+                        mqzt:'',
+                        jd: '',
+                        wd: ''
+                    }
+
+                },
+                methods: {
+                    keySearch: function () {
+                        if (this.topKeywords == "") {
+                            alert('搜索关键字不能够为空！');
+                            return false;
+                        }
+                        window.location = "transfer_list.html?search_str=" + encodeURI(this.topKeywords);
+                    },
+                    lianxiwomen: function () {
+                        $(".contactusdiyou").hover(function () {
+                            $('.diyoumask').fadeIn();
+                            $('.contactusdiyou').animate({ right: '0' }, 300);
+                        }, function () {
+                            $('.contactusdiyou').animate({ right: '-230px' }, 300, function () { });
+                            $('.diyoumask').fadeOut();
+                        });
+                    },
+                    tupianlunbo: function () {
+                        $('#shop_detail').banqh({
+                            box: "#shop_detail", //总框架
+                            pic: "#ban_pic1", //大图框架
+                            pnum: "#ban_dt_num", //小图框架
+                            prev_btn: "#prev_btn1", //小图左箭头
+                            next_btn: "#next_btn1", //小图右箭头
+                            pop_prev: "#prev2", //弹出框左箭头
+                            pop_next: "#next2", //弹出框右箭头
+                            prev: "#prev1", //大图左箭头
+                            next: "#next1", //大图右箭头
+                            pop_div: "#demo2", //弹出框框架
+                            pop_pic: "#ban_pic2", //弹出框图片框架
+                            pop_xx: ".pop_up_xx", //关闭弹出框按钮
+                            mhc: ".mhc", //朦灰层
+                            autoplay: true, //是否自动播放
+                            interTime: 2000, //图片自动切换间隔
+                            delayTime: 400, //切换一张图片时间
+                            pop_delayTime: 400, //弹出框切换一张图片时间
+                            order: 0, //当前显示的图片（从0开始）
+                            picdire: true, //大图滚动方向（true为水平方向滚动）
+                            mindire: true, //小图滚动方向（true为水平方向滚动）
+                            min_picnum: 4, //小图显示数量
+                            pop_up: true //大图是否有弹出框
+                        })
+                    },
+                    getRequest: function () {
+                        var url = location.search; //获取url中"?"符后的字串   
+                        var theRequest = new Object();
+                        if (url.indexOf("?") != -1) {
+                            var str = url.substr(1);
+                            strs = str.split("&");
+                            for (var i = 0; i < strs.length; i++) {
+                                theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                            }
+                        }
+                        return theRequest;
+                    },
+                    getData: function () {
+                        var me = this;
+                        $.ajax({
+                            type: "get",
+                            url: me.restUrl + "/new/getNewsById",//获取租金信息
+                            dataType: "jsonp",
+                            async: false,
+                            data: { id: me.id },
+                            success: function (data) {
+                                me.jbxx = data.newsInfo;
+                                me.jbxx.imgurls  && (me.jbxx.imgurlAry = me.jbxx.imgurls.split(","));
+                                // me.jbxx.lxdh = me.jbxx.lxdh.substr(0,6)+"*****";
+                                me.initMap();
+                                setTimeout( me.tupianlunbo,1000)
+                            }
+                        });
+                    },
+                    initMap: function () {
+                        var me = this;
+                        var map = new BMap.Map("allmap");
+                        if(!me.jbxx.jd && !me.jbxx.wd){
+                            return;
+                        }
+                        var point = new BMap.Point(me.jbxx.jd, me.jbxx.wd);        
+                        var new_point = new BMap.Point(me.jbxx.jd, me.jbxx.wd);
+                        var marker = new BMap.Marker(new_point);  // 创建标注
+                       
+                        map.clearOverlays();
+                        map.addOverlay(marker);              // 将标注添加到地图中
+                        map.centerAndZoom(point, 15);
+                        // map.panTo(new_point);
+                        var opts = {
+                            width: 250,     // 信息窗口宽度
+                            height: 100,     // 信息窗口高度
+                            title: me.jbxx.bt, // 信息窗口标题
+                            enableMessage: true,//设置允许信息窗发送短息
+                            message: ""
+                        }
+
+                        var sContent =
+                            "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>" + me.jbxx.bt + "</h4>" +
+                            "<img style='float:right;margin:4px' id='imgDemo' src='" + me.jbxx.imgurl + "' width='139' height='104' title='天安门'/>" +
+                            "<p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>" + me.jbxx.spdz + "</p>" +
+                            "</div>";
+                        var infoWindow = new BMap.InfoWindow(sContent);
+
+                        // var infoWindow = new BMap.InfoWindow(me.jbxx.spdz, opts);  // 创建信息窗口对象 
+                        marker.addEventListener("click", function () {
+                            map.openInfoWindow(infoWindow, point); //开启信息窗口
+                        });
+
+
+
+                    }
+                },
+                mounted: function () {
+                    this.lianxiwomen();//联系我们
+                   
+                    this.id = this.getRequest().id;
+                    this.getData();
+
+                }
+            });
+        })
+    </script>
+
+
+
+</body>
+
+</html>

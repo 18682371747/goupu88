@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>购铺网</title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <meta name="description" content="购铺网 长沙商铺 门面出租转让 商铺出租转让 长沙找门面 长沙转门面">
+    <meta name="keywords" content="购铺网 长沙商铺 门面出租转让 商铺出租转让 长沙找门面 长沙转门面">
+    <meta name="author" content="购铺网">
+    <link rel="stylesheet" type="text/css" href="./resource/css/admin.css">
+    <link rel="stylesheet" type="text/css" href="./resource/css/style.css">
+    <link rel="stylesheet" type="text/css" href="./resource/css/neiye.css">
+    <link rel="stylesheet" type="text/css" href="./resource/css/filter.css">
+    <link rel="stylesheet" type="text/css" href="./resource/themes/default/css/umeditor.css">
+
+
+    <script type="text/javascript" src="./resource/js/jquery.js"></script>
+    <script type="text/javascript" src="./resource/js/vue.min.js"></script>
+    <script type="text/javascript" src="./resource/js/umeditor.config.js"></script>
+    <script type="text/javascript" src="./resource/js/umeditor.min.js"></script>
+    <script type="text/javascript" src="./resource/lang/zh-cn/zh-cn.js"></script>
+
+
+    <style type="text/css">
+        #exp_list {
+            font-size: 12px;
+        }
+
+        #exp_list select {
+            width: 150px;
+            height: 28px;
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+
+        .bar {
+            height: 18px;
+            background: green;
+        }
+
+        .upload_btn {
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            background: #E4E4E4;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 2px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div id="app">
+        <!-- header开始 -->
+        <!-- top -->
+        <div class="header">
+            <div class="logo clearfix">
+                <a href="http://www.goupu88.com/index.html">
+                    <img src="./resource/images/logo.jpg" alt="">
+                </a>
+                <div class="head-center">
+                    <form>
+                        <input type="text" name="topKeywords" placeholder="求租" v-model="topKeywords">
+                        <input type="button" name="submit" value="搜索" @click="keySearch">
+                        <p class="hot-search">热门搜索：
+                            <a href="http://www.goupu88.com/transfer_list.html?qy=all">区域</a>
+                            <a href="http://www.goupu88.com/transfer_list.html?mj=all">面积</a>
+                        </p>
+                    </form>
+
+                </div>
+                <div class="head-right">
+                    <p>
+                        <a href="publish.html">免费发布信息</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="header-bottom">
+            <div class="content clearfix">
+                <div class="shop-screening">
+                    <p>商铺筛选</p>
+                </div>
+                <div class="top_bottom">
+                    <ul class="clearfix">
+                        <li>
+                            <a href="index.html">首页</a>
+                        </li>
+                        <li>
+                            <a href="transfer_list.html?lx=2">商铺转让</a>
+                        </li>
+                        <li>
+                            <a href="transfer_list.html?lx=3">出租招商</a>
+                        </li>
+                        <li>
+                            <a href="activity_list.html">活动策划</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="contact">
+                    <img src="./resource/images/tel-phone.png" style="height: 47px;">
+                    <span>热线电话：15074928121</span>
+                </div>
+            </div>
+        </div>
+        <div id="containerAdmin" class="wrapper_m">
+            <div id="contentbarAdmin">
+                <form method="post" name="formAdmin" target="_parent" id="formAdmin" enctype="multipart/form-data">
+                    <div class="clearfix mt_10">
+                        <ul id="atab1" class="adminTabs_1">
+                            <li class="tabCurrent">常规信息</li>
+
+                        </ul>
+                    </div>
+                    <div id="atab1_content0">
+                        <table cellspacing="1" class="adminTableV0">
+                            <tbody>
+                                <tr>
+                                    <td class="tw_1"><i style="color: red;font-size: 16px;font-weight: bold;">*</i>信息主标题：</td>
+                                    <td class="tw_2">
+                                        <input v-model="form.bt" type="text" class="moduleBorderA moduleInputA iW_500" datatype="*" nullmsg="请输入标题！" errormsg="标题格式不正确！">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tw_1">自定义属性：</td>
+                                    <td class="tw_2">
+                                        <label>
+                                            <span class="iW_textTips2">
+                                                <input v-model="form.sx" type="checkbox" id="sx1" value="1">精选</span>
+                                        </label>
+                                        <label>
+                                            <span class="iW_textTips2">
+                                                <input v-model="form.sx" type="checkbox" id="sx2" value="2">推荐</span>
+                                        </label>
+                                        <label>
+                                            <span class="iW_textTips2">
+                                                <input v-model="form.sx" type="checkbox" id="sx3" value="3">热门</span>
+                                        </label>
+                                        <label>
+                                            <span class="iW_textTips2">
+                                                <input v-model="form.sx" type="checkbox" id="sx4" value="4">促销</span>
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tw_1"><i style="color: red;font-size: 16px;font-weight: bold;">*</i>信息所属类别：</td>
+                                    <td class="tw_2">
+                                        <label>
+                                            <span class="iW_textTips2">
+                                                <input v-model="form.lb" type="radio" id="sx1" value="1">商铺转让</span>
+                                        </label>
+                                        <label>
+                                            <span class="iW_textTips2">
+                                                <input v-model="form.lb" type="radio" id="sx1" value="2">商铺出租</span>
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tw_1"><i style="color: red;font-size: 16px;font-weight: bold;">*</i>区域：</td>
+                                    <td class="tw_2">
+                                        <select v-model="form.kz_qy" class="moduleBorderSelectA">
+                                            <option value="0">--请选择--&nbsp;&nbsp;&nbsp;</option>
+                                            <option :value="item.areaId" v-for="item in qy_items">&nbsp;&nbsp;&nbsp;{{item.areaName}}</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tw_1"><i style="color: red;font-size: 16px;font-weight: bold;">*</i>面积：</td>
+                                    <td class="tw_2">
+                                        <select v-model="form.kz_mj" class="moduleBorderSelectA">
+                                            <option value="0">--请选择--&nbsp;&nbsp;&nbsp;</option>
+                                            <option :value="item.id" v-for="item in mj_items">&nbsp;&nbsp;&nbsp;{{item.dm}}</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tw_1"><i style="color: red;font-size: 16px;font-weight: bold;">*</i>租金：</td>
+                                    <td class="tw_2">
+                                        <select v-model="form.kz_zj" class="moduleBorderSelectA">
+                                            <option value="0">--请选择--&nbsp;&nbsp;&nbsp;</option>
+                                            <option :value="item.id" v-for="item in zj_items">&nbsp;&nbsp;&nbsp;{{item.dm}}</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tw_1"><i style="color: red;font-size: 16px;font-weight: bold;">*</i>业态：</td>
+                                    <td class="tw_2">
+                                        <select v-model="form.kz_yt" class="moduleBorderSelectA">
+                                            <option value="0">--请选择--&nbsp;&nbsp;&nbsp;</option>
+                                            <option :value="item.id" v-for="item in yt_items">&nbsp;&nbsp;&nbsp;{{item.dm}}</option>
+                                        </select>
+                                    </td>
+                                </tr>
+
+
+
+                                <tr>
+                                    <td class="tw_1">
+                                        <i style="color: red;font-size: 16px;font-weight: bold;">*</i><b>热门</b>在主页展示的缩略图上传：</br>
+                                    </td>
+                                    <td class="tw_2">
+
+                                        <span style="display: inline-block;width: 110px;margin-right: 20px;">
+                                            <img id="uploadimg" src="./resource/images/no_pic_3.jpg" width="220px" height="170px" style="float:left;" />
+                                            <label id="realBtn" class="btn btn-info upload_btn" style="float:left;width:198px;">
+                                                <input type="file" id="fileupload" name="file" accept="image/*" class="mFileInput" style="left:-9999px;position:absolute;">
+                                                <span>选择图片上传</span>
+                                            </label>
+                                        </span>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tw_1"><i style="color: red;font-size: 16px;font-weight: bold;">*</i>缩略图上传：</td>
+                                    <td class="tw_2">
+                                        <span style="display: inline-block;width: 110px;margin-right: 20px;">
+                                            <img id="uploadimg1" src="./resource/images/no_pic_3.jpg" width="120px" height="100px" style="float:left;" />
+                                            <label id="realBtn" class="btn btn-info upload_btn" style="float:left;">
+                                                <input type="file" id="fileupload1" name="file" accept="image/*" class="mFileInput" style="left:-9999px;position:absolute;">
+                                                <span>选择图片上传</span>
+                                            </label>
+                                        </span>
+                                        <span style="display: inline-block;width: 110px;margin-right: 20px;">
+                                            <img id="uploadimg2" src="./resource/images/no_pic_3.jpg" width="120px" height="100px" style="float:left;" />
+                                            <label id="realBtn" class="btn btn-info upload_btn" style="float:left;">
+                                                <input type="file" id="fileupload2" name="file" accept="image/*" class="mFileInput" style="left:-9999px;position:absolute;">
+                                                <span>选择图片上传</span>
+                                            </label>
+                                        </span>
+                                        <span style="display: inline-block;width: 110px;margin-right: 20px;">
+                                            <img id="uploadimg3" src="./resource/images/no_pic_3.jpg" width="120px" height="100px" style="float:left;" />
+                                            <label id="realBtn" class="btn btn-info upload_btn" style="float:left;">
+                                                <input type="file" id="fileupload3" name="file" accept="image/*" class="mFileInput" style="left:-9999px;position:absolute;">
+                                                <span>选择图片上传</span>
+                                            </label>
+                                        </span>
+                                        <span style="display: inline-block;width: 110px;margin-right: 20px;">
+                                            <img id="uploadimg4" src="./resource/images/no_pic_3.jpg" width="120px" height="100px" style="float:left;" />
+                                            <label id="realBtn" class="btn btn-info upload_btn" style="float:left;">
+                                                <input type="file" id="fileupload4" name="file" accept="image/*" class="mFileInput" style="left:-9999px;position:absolute;">
+                                                <span>选择图片上传</span>
+                                            </label>
+                                        </span>
+                                        <span style="display: inline-block;width: 110px;">
+                                            <img id="uploadimg5" src="./resource/images/no_pic_3.jpg" width="120px" height="100px" style="float:left;" />
+                                            <label id="realBtn" class="btn btn-info upload_btn" style="float:left;">
+                                                <input type="file" id="fileupload5" name="file" accept="image/*" class="mFileInput" style="left:-9999px;position:absolute;">
+                                                <span>选择图片上传</span>
+                                            </label>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tw_1">
+                                        <span class="iW_textTips">价格：</span>
+                                    </td>
+                                    <td class="tw_2">
+                                        <input v-model="form.price" type="number" class="moduleBorderA moduleInputA iW_200">元/月&nbsp;&nbsp;
+                                        <font color="#FF0000">备注：价格写0则为“面议”</font>
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td class="tw_1">
+                                        <span class="iW_textTips"><i style="color: red;font-size: 16px;font-weight: bold;">*</i>面积：</span>
+                                    </td>
+                                    <td class="tw_2">
+                                        <input v-model="form.mj" type="number" class="moduleBorderA moduleInputA iW_200" size="10" datatype="n" nullmsg="请输入面积！"
+                                            errormsg="面积格式不正确！"> ㎡
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tw_1">
+                                        <span class="iW_textTips"><i style="color: red;font-size: 16px;font-weight: bold;">*</i>联系电话：</span>
+                                    </td>
+                                    <td class="tw_2">
+                                        <input v-model="form.lxdh" type="number" class="moduleBorderA moduleInputA iW_200" size="10" datatype="*" nullmsg="请输入联系电话！"
+                                            errormsg="联系电话不正确！">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tw_1">
+                                        <span class="iW_textTips"><i style="color: red;font-size: 16px;font-weight: bold;">*</i>联系人：</span>
+                                    </td>
+                                    <td class="tw_2">
+                                        <input v-model="form.lxr" type="text" class="moduleBorderA moduleInputA iW_200" size="10" datatype="*" nullmsg="请输入联系人！"
+                                            errormsg="联系人格式不正确！">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tw_1 ">
+                                        <span class="iW_textTips ">地图坐标：</span>
+                                    </td>
+                                    <td class="tw_2 ">
+                                        <input v-model="form.dtjt" type="text" class="moduleBorderA moduleInputA iW_200" size="10" datatype="*" nullmsg="请输入地图坐标！"
+                                            errormsg="地图坐标不正确！">
+                                        <a href="http://api.map.baidu.com/lbsapi/getpoint/index.html" target="_blank ">点击创建地图坐标信息</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tw_1">
+                                        <span class="iW_textTips"><i style="color: red;font-size: 16px;font-weight: bold;">*</i>商铺地址：</span>
+                                    </td>
+                                    <td class="tw_2">
+                                        <input v-model="form.spdz" type="text" class="moduleBorderA moduleInputA iW_500" datatype="*" nullmsg="请输入商铺地址！" errormsg="商铺地址格式不正确！">
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="tw_1"><i style="color: red;font-size: 16px;font-weight: bold;">*</i>商圈优势：</td>
+                                    <td class="tw_2">
+                                        <textarea v-model="form.mmys" style="width:700px; height:200px;border:1px solid #D3D3D3"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tw_1"><i style="color: red;font-size: 16px;font-weight: bold;">*</i>门面介绍：</td>
+                                    <td class="tw_2">
+                                        <!--style给定宽度可以影响编辑器的最终宽度-->
+                                        <script type="text/plain" id="myEditor" style="width:1000px;height:240px;">
+                                            <p>这里我可以写一些输入提示</p>
+                                        </script>
+
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td colspan="2 " class="tw_3 ">
+                                        <input name="Submit " type="submit " value="发布 " class="btn_2 " @click="subForm">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+            <div class="clearfix "></div>
+        </div>
+        <!-- footer -->
+        <footer>
+            <div class="footer">
+                <div class="content clearfix">
+                    <p>Copyright http://www.goupu88.com All Rights Reserved</p>
+                    <p>长沙融聚文化有限公司 公司地址：湖南省长沙市雨花区雨花亭万博汇二期5栋1810室</p>
+                    <p>投诉热线：13530535270</p>
+                    <p>ICP备案号： XXXXXX</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                topKeywords: '',
+                restUrl: 'http://183.215.12.97:8884/slowbuy',//http://183.215.12.97:8884/rjBuy     http://192.168.1.107:8080/slowbuy/
+                form: {
+                    bt: '',
+                    sx: [],
+                    lb: '0',
+                    imgurl: '',
+                    imgurls: '',
+                    price: '',
+                    spdz: '',
+                    mj: '',
+                    lxdh: '',
+                    lxr: '',
+                    mmys: '',
+                    mmjs: '',
+                    dtjt: '',
+                    kz_qy: '0',
+                    kz_mj: '0',
+                    kz_zj: '0',
+                    kz_yt: '0',
+                    mqzt: '0',
+                    jd: '',
+                    wd: ''
+                },
+                zj_items: [],
+                qy_items: [],
+                yt_items: [],
+                mj_items: []
+
+
+
+            },
+            methods: {
+                keySearch: function () {
+                    if (this.topKeywords == "") {
+                        alert('搜索关键字不能够为空！');
+                        return false;
+                    }
+                    window.location = "transfer_list.html?search_str=" + encodeURI(this.topKeywords);
+                },
+                getMjInfo: function () {
+                    var me = this;
+                    $.ajax({
+                        type: "get",
+                        url: me.restUrl + "/search/getMjInfo",//获取面积信息
+                        dataType: "jsonp",
+                        async: false,
+                        data: {},
+                        success: function (data) {
+                            me.mj_items = data.commonInfo;
+                        }
+                    });
+                },
+                upload: function () {
+                    var me = this;
+                    $(".upload_btn").on('change', function (file) {
+                        var btn_ts = $(this);
+                        var reader = new FileReader();
+                        var base64 = '';
+                        reader.readAsDataURL(file.target.files[0]);
+                        reader.onloadend = function () {
+                            base64 = this.result; // base64就是图片的转换的结果 
+                            var form = new FormData(document.getElementById("formAdmin"));
+                            $.ajax({
+                                url: me.restUrl + "/file/uploadImg",
+                                type: "post",
+                                data: form,
+                                cache: false,
+                                processData: false,
+                                contentType: false,
+                                success: function (data) {
+                                    data = JSON.parse(data);
+                                    btn_ts.prev().attr("src", data.filePath);
+                                },
+                                error: function (e) {
+                                    alert("网络错误，请重试！！");
+                                }
+                            });
+                        };
+                    })
+
+
+                },
+                getZjInfo: function () {
+                    var me = this;
+                    $.ajax({
+                        type: "get",
+                        url: me.restUrl + "/search/getZjInfo",//获取租金信息
+                        dataType: "jsonp",
+                        async: false,
+                        data: {},
+                        success: function (data) {
+                            me.zj_items = data.commonInfo;
+                        }
+                    });
+                },
+                getQyInfo: function () {
+                    var me = this;
+                    $.ajax({
+                        type: "get",
+                        url: me.restUrl + "/first/getArea",//获取区域信息
+                        dataType: "jsonp",
+                        async: false,
+                        data: {},
+                        success: function (data) {
+                            me.qy_items = data.AreaInfo;
+                        }
+                    });
+                },
+                getYtInfo: function () {
+                    var me = this;
+                    $.ajax({
+                        type: "get",
+                        url: me.restUrl + "/search/getYtInfo",//获取业态信息
+                        dataType: "jsonp",
+                        async: false,
+                        data: {},
+                        success: function (data) {
+                            me.yt_items = data.commonInfo;
+                        }
+                    });
+                },
+
+
+                subForm: function () {
+                    var me = this;
+                    me.form.id = new Date().getTime().toString().substring(3, 15);
+                    me.form.mmjs = UM.getEditor('myEditor').getContent();
+                    me.form.sx = typeof (me.form.sx) == "object" ? me.form.sx.join(",") : me.form.sx;
+                    me.form.jd = me.form.dtjt.split(",")[0];
+                    me.form.wd = me.form.dtjt.split(",")[1];
+                    me.form.imgurl = $("#uploadimg").attr("src");
+                    me.form.imgurls = $("#uploadimg1").attr("src") + "," + $("#uploadimg2").attr("src") + "," + $("#uploadimg3").attr("src") + "," + $("#uploadimg4").attr("src") + "," + $("#uploadimg5").attr("src");
+                    me.validate(function () {
+                        $.ajax({
+                            type: "post",
+                            url: me.restUrl + "/add/addNews",
+                            dataType: "jsonp",
+                            async: false,
+                            data: me.form,
+                            success: function (data) {
+                                alert("提交成功，待审核中");
+                                window.location.reload();
+                            }
+                        });
+                    })
+
+                },
+                validate: function (callback) {
+
+                    if (!app.form.bt) {
+                        alert('请输入信息主标题');
+                        return;
+                    } else if (!app.form.lb) {
+                        alert('请选择信息所属类别');
+                        return;
+                    } else if (!app.form.kz_qy) {
+                        alert('请选择区域信息');
+                        return;
+                    } else if (!app.form.kz_mj) {
+                        alert('请选择面积范围');
+                        return;
+                    } else if (!app.form.kz_zj) {
+                        alert('请选择租金范围');
+                        return;
+                    } else if (!app.form.kz_yt) {
+                        alert('请选择业态信息');
+                        return;
+                    } else if (!app.form.price) {
+                        alert('请输入价格');
+                        return;
+                    } else if (!app.form.mj) {
+                        alert('请输入面积');
+                        return;
+                    } else if (!app.form.lxr) { 
+                        alert('请输入联系人');
+                        return;
+                    }else if (!me.form.imgurl) { 
+                        alert('请上传主页展示图');
+                        return;
+                    }else if (!app.form.imgurls) { 
+                        alert('请上传缩略图');
+                        return;
+                    } else if (!app.form.lxdh) {
+                        alert('请输入联系电话');
+                        return;
+                    } else if (!app.form.spdz) {
+                        alert('请输入商铺地址');
+                        return;
+                    } else if (!app.form.mmys) {
+                        alert('请输入商铺优势');
+                        return;
+                    } else if (!app.form.mmjs) {
+                        alert('请输入门面介绍');
+                        return;
+                    }
+
+                    callback && callback();
+
+                }
+
+            },
+            mounted: function () {
+                //实例化编辑器
+                var um = UM.getEditor('myEditor');
+                um.addListener('blur', function () {
+                    $('#focush2').html('编辑器失去焦点了')
+                });
+                um.addListener('focus', function () {
+                    $('#focush2').html('')
+                });
+
+                this.getQyInfo();
+                this.getMjInfo();
+                this.getZjInfo();
+                this.getYtInfo();
+                this.upload();
+
+
+            }
+        });
+    </script>
+
+</body>
+
+</html>

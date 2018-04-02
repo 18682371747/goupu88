@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>购铺网</title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <meta name="description" content="购铺网 长沙商铺 门面出租转让 商铺出租转让 长沙找门面 长沙转门面">
+    <meta name="keywords" content="购铺网 长沙商铺 门面出租转让 商铺出租转让 长沙找门面 长沙转门面">
+    <meta name="author" content="购铺网">
+    <link rel="stylesheet" type="text/css" href="./resource/css/style.css">
+    <link rel="stylesheet" type="text/css" href="./resource/css/neiye.css">
+    <link rel="stylesheet" type="text/css" href="./resource/css/filter.css">
+    <link rel="stylesheet" type="text/css" href="./resource/css/public.css">
+    <link rel="stylesheet" type="text/css" href="./resource/css/iconfont.css">
+
+    <script type="text/javascript" src="./resource/js/jquery-2.2.3.min.js"></script>
+    <script type="text/javascript" src="./resource/js/vue.min.js"></script>
+    <script type="text/javascript" src="./resource/js/paging.js"></script>
+    <script type="text/javascript" src="./resource/js/tab.js"></script>
+    <script type="text/javascript" src="./resource/js/words-roll.js"></script>
+    <style>
+        .header-bottom .top_bottom {
+            width: 950px;
+        }
+
+        .mytable {
+            width: 1200px;
+            height: auto;
+            margin: 0 auto;
+
+        }
+
+        .mytable table {
+            width: 100%;
+            border: 1px solid #999;
+            padding: 0;
+            margin: 0;
+            border-collapse: collapse;
+        }
+
+        .mytable th {
+            height: 45px;
+            line-height: 45px;
+            text-align: center;
+            border-bottom: 1px solid #999;
+            padding: 0;
+            margin: 0;
+
+        }
+
+        .mytable td {
+            height: 40px;
+            line-height: 20px;
+            text-align: center;
+            border-bottom: 1px solid #999;
+            padding: 0;
+            margin: 0;
+            font-size: 13px;
+        }
+
+        .mytable td i {
+            cursor: pointer;
+        }
+
+        .mytable tr:hover {
+            background-color: #f8f8f8;
+        }
+
+        .mytable tr:nth-child(2n) {
+            background-color: #f8f8f8;
+        }
+
+        .mytable tfoot {
+            width: 100%;
+        }
+
+        .mytable tfoot a {
+            text-decoration: none;
+            color: #999;
+        }
+        .add_span {
+            float: right;
+            position: absolute;
+            right: 10px;
+            top: -10px;
+        }
+
+        .add_span .btn_2 {
+            background: #DC6041;
+            border: 1px solid #D24726;
+            width: 100px;
+            height: 30px;
+            overflow: hidden;
+            text-align: center;
+            color: #FFF;
+            font: bold 14px/28px '';
+            cursor: pointer;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- top -->
+        <div class="header">
+            <div class="logo clearfix">
+                <a href="http://www.goupu88.com/index.html">
+                    <img src="./resource/images/logo.jpg" alt="">
+                </a>
+
+            </div>
+        </div>
+        <div class="header-bottom">
+            <div class="content clearfix">
+                <div class="shop-screening">
+                    <p>购铺网后台管理</p>
+                </div>
+                <div class="top_bottom">
+                    <ul class="clearfix">
+                        <li>
+                            <a href="admin.html">免费发布信息审核</a>
+                        </li>
+                        <li>
+                            <a href="admin_advert.html">首页广告发布</a>
+                        </li>
+                        <li>
+                            <a href="admin_activity.html">活动策划发布</a>
+                        </li>
+                        <li>
+                            <a href="admin_business.html">商业动态发布</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="content news-box clearfix">
+            <!-- <div class="w_a aboutCon"> -->
+            <div class="navigation">
+                购铺网后台管理 &gt; 当前位置：
+                <a href="admin_activity.html">活动策划发布</a>
+                <span class="add_span">
+                    <input name="Submit " type="button " value="发布 " class="btn_2 " @click="openWin('publish_activity.html','活动详情')">
+                </span>
+            </div>
+
+            <div id="" class="">
+                <div class="mytable">
+                    <table style="table-layout: fixed">
+                        <thead>
+                            <tr>
+                                <th style="width:50px;" >序号</th>
+                                <th style="width:200px;text-align:left;">活动标题</th>
+                                <th style="width:400px;text-align:left;">活动内容</th>
+                                <th style="width:100px;text-align:left;">协办方</th>
+                                <th style="width:100px;text-align:left;">主办方</th>
+                                <th style="width:80p;text-align:left;">活动时间</th>
+                                <th style="width:120px;">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(item,index) in items">
+                                <td style="width:50px;" v-text="index+1"></td>
+                                <td style="width:200px;text-align:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;padding-right: 15px;" v-text="item.bt" :title="item.bt"></td>
+                                <td style="width:400px;text-align:left;white-space: nowrap;text-overflow: ellipsis; overflow: hidden;padding-right: 25px;" v-text="item.context" :title="item.context"></td>
+
+                                <td style="width:100px;text-align:left;" v-text="item.xbf"></td>
+                                <td style="width:100px;text-align:left;" v-text="item.zbf"></td>
+                                <td style="width:80px;text-align:left;" v-text="item.hd_sj"></td>
+                                <td style="width:120px;">
+                                    <i class="iconfont icon-bianji " @click="openWin('publish_activity.html?id='+item.id,'活动详情')" title="编辑" style="color:#1afa29;font-size:24px;margin-right: 5px;"></i>
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+                <div style=" width:1200px; margin:0 auto;">
+                    <div class="PageProgram">
+                        <div id="page" class="page_div"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <footer>
+            <div class="footer">
+                <div class="content clearfix">
+                    <p>Copyright http://www.goupu88.com All Rights Reserved</p>
+                    <p>长沙融聚文化有限公司 公司地址：湖南省长沙市雨花区雨花亭万博汇二期5栋1810室</p>
+                    <p>投诉热线：13530535270</p>
+                    <p>ICP备案号： XXXXXX</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+
+    <script type="text/javascript">
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                restUrl: 'http://183.215.12.97:8884/slowbuy',//http://183.215.12.97:8884/rjBuy     http://192.168.1.107:8080/slowbuy/
+                items: [],
+                page: 0,
+                pageIndex: 1,
+                totalCount: '',
+                searchParam: { pageIndex: 1, pageSize: 10 },
+
+            },
+            methods: {
+                initPage: function () {
+                    var me = this;
+                    //分页
+                    $("#page").paging({
+                        pageNo: me.pageIndex,
+                        totalPage: me.page,
+                        totalSize: me.totalCount,
+                        callback: function (num) {
+                            me.pageIndex = num;
+                            me.getList();
+                            $(window).scrollTop(0);
+                        }
+                    })
+                },
+                getList: function () {
+                    var me = this;
+                    me.searchParam.pageIndex = me.pageIndex;
+                    me.searchParam.pageSize = 10;
+                    $.ajax({
+                        type: "get",
+                        url: me.restUrl + "/new/getActivity",
+                        dataType: "jsonp",
+                        async: false,
+                        data: me.searchParam,
+                        success: function (data) {
+                            function delHtmlTag(str) {
+                                return str.replace(/<[^>]+>/g, "");//去掉所有的html标记
+                            }
+                            data.actuvityInfo.map(function (item) {
+                                item.context = delHtmlTag(item.context);
+                            })
+                            me.items = data.actuvityInfo;
+
+                            me.totalCount = data.totalCount;
+                            me.page = Math.ceil(me.totalCount / 10);
+                            me.initPage();//初始化分页组件
+                        }
+                    });
+
+                },
+                getRequest: function () {
+                    var url = location.search; //获取url中"?"符后的字串   
+                    var theRequest = new Object();
+                    if (url.indexOf("?") != -1) {
+                        var str = url.substr(1);
+                        strs = str.split("&");
+                        for (var i = 0; i < strs.length; i++) {
+                            theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                        }
+                    }
+                    return theRequest;
+                },
+                openWin: function (url, text, winInfo) {
+                    var winObj = window.open(url, text, winInfo);
+                    var loop = setInterval(function () {
+                        if (winObj.closed) {
+                            clearInterval(loop);
+                            //alert('closed');      
+                            parent.location.reload();
+                        }
+                    }, 1);
+                }
+
+            },
+            mounted: function () {
+                this.getList();
+
+            }
+        });
+    </script>
+
+
+
+</body>
+
+</html>
