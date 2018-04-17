@@ -192,7 +192,7 @@
                 <div ng-view="" class="ng-scope">
                     <div class="shop clearfix ng-scope">
                         <ul>
-                            <li v-for="(item,index) in wpjx_items" v-if="index<10">
+                            <li v-for="(item,index) in wpjx_items">
                                 <a target="_blank" :href="'transfer_detail.html?id='+item.id">
                                     <img :src="item.imgurl">
                                     <p></p>
@@ -579,6 +579,7 @@
                         });
                     },
                     getJingXuan: function (param) {
+                        param.pagesize = 50;
                         var me = this;
                         $.ajax({
                             type: "post",
