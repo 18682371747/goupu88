@@ -47,7 +47,7 @@ a, img {
 	margin:5px 0px 0px 440px;
 	width:49px;
 	height:21px;
-	background:url("../images/public_showTL_1201.png");
+	/* background:url("../images/public_showTL_1201.png"); */
 	cursor:pointer;
 }
 .advbox .dt_toSmall {
@@ -56,6 +56,6 @@ a, img {
 	margin:5px 0px 0px 440px;
 	width:49px;
 	height:21px;
-	background:url("../images/public_closeTL_1201.png");
+	/* background:url("../images/public_closeTL_1201.png"); */
 	cursor:pointer;
 }
