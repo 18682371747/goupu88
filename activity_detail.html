@@ -16,6 +16,19 @@
     <script type="text/javascript" src="./resource/js/jquery.js"></script>
     <script type="text/javascript" src="./resource/js/pic_tab.js"></script>
     <script type="text/javascript" src="./resource/js/vue.min.js"></script>
+    <style>
+        .content_pre {
+            display: block;
+            font-family: -moz-fixed;
+            margin: 1em 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            padding: 0 44px;
+        }
+        .content_bottom{
+            padding-left:44px;
+        }
+    </style>
 </head>
 
 <body>
@@ -62,7 +75,7 @@
                             <a href="transfer_list.html?lx=3">出租招商</a>
                         </li>
                         <li>
-                                <a href="activity_list.html">活动策划</a>
+                            <a href="activity_list.html">活动策划</a>
                         </li>
 
                     </ul>
@@ -79,16 +92,21 @@
             <!-- <div class="w_a aboutCon"> -->
             <div class="navigation">
                 购铺网 &gt; 当前位置：
-                <a href="index.html">首页</a> &gt;<a href="activity_list.html">活动策划</a> &gt; 活动详情
+                <a href="index.html">首页</a> &gt;
+                <a href="activity_list.html">活动策划</a> &gt; 活动详情
             </div>
 
             <div id="" class="content-r">
                 <div class="news-de clearfix">
                     <h3 style="text-align: center; margin-bottom: 30px;" v-html="jbxx.bt"></h3>
-                    <div v-html="jbxx.context">
+                    <div class="content_bottom">
+                        <p class="col-lg-12" v-text="'主办单位：'+jbxx.zbf"></p>
+                        <p v-text="'协办单位：'+jbxx.xbf"></p>
                     </div>
-                    <div style="text-align:center;">
-                            <img :src="item" v-for="item in jbxx.imgs" style="    width: 300px; height: 200px; margin-right: 10px;">
+                    <div class="content_pre" v-html="jbxx.context">
+                    </div>
+                    <div style="text-align:center;"  v-for="item in jbxx.imgs">
+                        <img :src="item" style="width: 300px; height: 200px; margin-right: 10px;">
                     </div>
                     
                 </div>
@@ -186,7 +204,7 @@
                             alert('搜索关键字不能够为空！');
                             return false;
                         }
-                        window.location = "transfer_list.html?search_str="+encodeURI(this.topKeywords);
+                        window.location = "transfer_list.html?search_str=" + encodeURI(this.topKeywords);
                     },
                     lianxiwomen: function () {
                         $(".contactusdiyou").hover(function () {
